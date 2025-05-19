@@ -53,8 +53,15 @@ export default function Main() {
 
   useEffect(() => {
     setLoading(true);
-    getPosts(selectedCategory)
-      .then(res => setPosts(res.data))
+    getPosts(selectedCategory ? { category_id: selectedCategory } : {})
+      .then(res => {
+        const postsData = res.data?.data || res.data || [];
+        setPosts(postsData);
+      })
+      .catch(error => {
+        console.error('获取文章失败:', error);
+        setPosts([]);
+      })
       .finally(() => setLoading(false));
   }, [selectedCategory]);
 
@@ -195,7 +202,7 @@ export default function Main() {
             </div>
           ) : (
             <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-              {posts.map(post => (
+              {posts.map(post => ( //err line
                 <li
                   key={post.id}
                   style={{
