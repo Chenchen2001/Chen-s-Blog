@@ -1,10 +1,20 @@
 const db = require('../db');
 
 exports.getAllPosts = (req, res) => {
-  const sql = `SELECT id, title, category_id, created_at FROM posts ORDER BY created_at DESC`;
-  db.query(sql, (err, results) => {
+  const { category_id } = req.query;
+  let sql = `SELECT id, title, category_id, created_at FROM posts`;
+  
+  const params = [];
+  if (category_id) {
+    sql += ` WHERE category_id = ?`;
+    params.push(category_id);
+  }
+  
+  sql += ` ORDER BY created_at DESC`;
+  
+  db.query(sql, params, (err, results) => {
     if (err) return res.status(500).json({ message: '查询文章失败', error: err });
-    res.json(results);
+    res.json({ data: results });
   });
 };
 
