@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const request = axios.create({
-  baseURL: 'https://blog.chenchen.ip-ddns.com', // 后端地址
+  baseURL: '<Your Request Backend URL here>', 
 });
 
 request.interceptors.request.use((config) => {
