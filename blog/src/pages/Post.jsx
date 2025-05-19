@@ -55,7 +55,7 @@ export default function Posts() {
       <Button type="primary" onClick={() => navigate('/admin/posts/new')} style={{ marginBottom: 16 }}>
         新增文章
       </Button>
-      <Table rowKey="id" columns={columns} dataSource={posts} />
+      <Table rowKey="id" columns={columns} dataSource={posts.data} />
     </div>
   );
 }
