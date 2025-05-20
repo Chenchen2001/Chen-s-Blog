@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { getPostById } from '../api/post';
 import { getCategories } from '../api/category';
 
@@ -92,6 +93,7 @@ export default function PostDetail() {
           margin-right: auto;
           padding: 0 16px 40px 16px;
           transition: background 0.5s, color 0.5s;
+          overflow: 'auto';
         }
       `}</style>
 
@@ -202,7 +204,7 @@ export default function PostDetail() {
               <span>{new Date(post.created_at).toLocaleDateString()}</span>
             </div>
             <section style={{ fontSize: 16, lineHeight: 1.7, color: theme.textPrimary }}>
-              <ReactMarkdown>{post.content}</ReactMarkdown>
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
             </section>
           </article>
         ) : (
